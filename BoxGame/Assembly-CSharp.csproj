@@ -53,7 +53,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Box.cs" />
      <Compile Include="Assets\Scripts\LevelScript.cs" />
+     <Compile Include="Assets\Scripts\OnBoxTriggerEnter.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/Users/Chris/Documents/FA3600/FA3600VNarrProj/BoxGameMaster/BoxGame/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
