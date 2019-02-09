@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Box : MonoBehaviour
 {
+    [SerializeField] private Transform player;
+    [SerializeField] private float speed = 5.0f;
     private bool follow = false;
 
     void FixedUpdate()
@@ -11,6 +13,7 @@ public class Box : MonoBehaviour
         if (follow)
         {
             print("Following");
+            transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
         }
     }
 
