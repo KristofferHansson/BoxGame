@@ -15,7 +15,7 @@ public class LevelScript : MonoBehaviour
 
     void DimSunlight()
     {
-        sun.intensity -= 0.01f;
+        sun.intensity -= 0.05f;
         if (sun.intensity < 0.1)
         {
             CancelInvoke();
