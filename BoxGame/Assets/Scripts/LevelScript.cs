@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class LevelScript : MonoBehaviour
 {
+    [SerializeField] private Light sun;
+    [SerializeField] private GameObject policeLights;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        InvokeRepeating("DimSunlight", 1.0f, 1.0f);
     }
 
-    // Update is called once per frame
-    void Update()
+    void DimSunlight()
     {
-        
+        sun.intensity -= 0.01f;
+        if (sun.intensity < 0.1)
+        {
+            CancelInvoke();
+            policeLights.SetActive(true);
+        }
     }
 }
