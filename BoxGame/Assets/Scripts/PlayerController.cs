@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float move_Speed = 1.0f;
     [SerializeField] private Transform cam;
+    [SerializeField] private GameObject mesh;
     private Rigidbody m_Rigidbody;
     private Vector3 move;
     private bool topView = true;
@@ -46,6 +47,10 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         m_Rigidbody.velocity = move * move_Speed;
+        if (Mathf.Abs(move.x) > 0.707)
+            mesh.transform.eulerAngles = new Vector3(-90,0,90);
+        else if (Mathf.Abs(move.z) > 0.707)
+            mesh.transform.eulerAngles = new Vector3(-90, 0, 0);
     }
 
     private void RotateCam()

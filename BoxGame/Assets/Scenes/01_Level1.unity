@@ -176,6 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   move_Speed: 5
   cam: {fileID: 1487896802}
+  mesh: {fileID: 1908069952}
 --- !u!1 &352907329
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,6 +967,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1908069952 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: d79cb16ead25be44a91a8ec4201b0289,
+    type: 3}
+  m_PrefabInstance: {fileID: 2097950083}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1918168988
 GameObject:
   m_ObjectHideFlags: 0
