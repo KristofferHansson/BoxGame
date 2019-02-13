@@ -12,7 +12,6 @@ public class Box : MonoBehaviour
     {
         if (follow)
         {
-            print("Following");
             transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
         }
     }

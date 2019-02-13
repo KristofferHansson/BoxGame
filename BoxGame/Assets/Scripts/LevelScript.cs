@@ -7,6 +7,10 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private Light sun;
     [SerializeField] private GameObject policeLights;
 
+    [SerializeField] private Box houseGuy;
+    private bool hgInCloset = false;
+    [SerializeField] private GameObject closetDoor;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,5 +25,18 @@ public class LevelScript : MonoBehaviour
             CancelInvoke();
             policeLights.SetActive(true);
         }
+    }
+
+    public void HandleHouseGuyInCloset()
+    {
+        Destroy(houseGuy.transform.Find("Trigger").gameObject);
+        houseGuy.SetFollow(false);
+        hgInCloset = true;
+    }
+
+    public void HandlePlayerLeaveCloset()
+    {
+        if (hgInCloset)
+            closetDoor.transform.Translate(new Vector3(-3, 0, 0), Space.Self);
     }
 }
