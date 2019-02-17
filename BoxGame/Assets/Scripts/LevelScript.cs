@@ -11,6 +11,8 @@ public class LevelScript : MonoBehaviour
     private bool hgInCloset = false;
     [SerializeField] private GameObject closetDoor;
 
+    private int points = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,5 +40,12 @@ public class LevelScript : MonoBehaviour
     {
         if (hgInCloset)
             closetDoor.transform.Translate(new Vector3(-3, 0, 0), Space.Self);
+    }
+
+    public void HandleDeposit(Box deposited)
+    {
+        Destroy(deposited.transform.Find("Trigger").gameObject);
+        deposited.SetFollow(false);
+        points++;
     }
 }
