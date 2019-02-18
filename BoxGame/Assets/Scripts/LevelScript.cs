@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelScript : MonoBehaviour
 {
@@ -9,8 +10,10 @@ public class LevelScript : MonoBehaviour
 
     [SerializeField] private Box houseGuy;
     private bool hgInCloset = false;
+    private bool closClosed = false;
     [SerializeField] private GameObject closetDoor;
 
+    [SerializeField] private Text scorePtLbl;
     private int points = 0;
 
     // Start is called before the first frame update
@@ -38,14 +41,17 @@ public class LevelScript : MonoBehaviour
 
     public void HandlePlayerLeaveCloset()
     {
-        if (hgInCloset)
+        if (hgInCloset && !closClosed)
+        {
             closetDoor.transform.Translate(new Vector3(-3, 0, 0), Space.Self);
+            closClosed = true;
+        }
     }
 
     public void HandleDeposit(Box deposited)
     {
         Destroy(deposited.transform.Find("Trigger").gameObject);
         deposited.SetFollow(false);
-        points++;
+        scorePtLbl.text = (++points).ToString();
     }
 }
