@@ -50,6 +50,12 @@ public class LevelScript : MonoBehaviour
         phaseLbl.text = "Phase 1";
     }
 
+    public void HandleOfficeEntry()
+    {
+        Destroy(houseEntryTriggers);
+        houseGuy.SetFlee(true);
+    }
+
     public void HandleHouseGuyInCloset()
     {
         Destroy(houseGuy.transform.Find("Trigger").gameObject);
