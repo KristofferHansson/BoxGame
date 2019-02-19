@@ -29,6 +29,7 @@ public class LevelScript : MonoBehaviour
     private bool closClosed = false;
     [SerializeField] private GameObject closetDoor;
 
+    [SerializeField] private GameObject mainDepTrigger;
     [SerializeField] private Text scorePtLbl;
     private int points = 0;
     private int phase = 0;
@@ -39,24 +40,26 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private Text phaseLbl;
     [SerializeField] private Text countdownLbl;
     [SerializeField] private Text timeTakenLbl;
-    private const float TOTALTIME = 60.00f;
-    private float timeRemaining = 60.00f;
+    private const float TOTALTIME = 70.00f;
+    private float timeRemaining;
     private float startTime;
     private float timeTaken;
+    private bool gameInProgress = true;
 
     // Start is called before the first frame update
     void Start()
     {
+        timeRemaining = TOTALTIME;
         InvokeRepeating("DimSunlight", 1.0f, 1.0f);
     }
 
     void FixedUpdate()
     {
-        if (playerInHouse && timeRemaining > 0)
+        if (playerInHouse && timeRemaining > 0 && gameInProgress)
         {
             timeRemaining = TOTALTIME - Time.time + startTime;
             countdownLbl.text = ((int)timeRemaining).ToString();
-            if (timeRemaining <= 0)
+            if (timeRemaining <= 0) // Win condition
                 HandleEndGame();
         }
     }
@@ -121,9 +124,10 @@ public class LevelScript : MonoBehaviour
             phaseLbl.text = "Phase 2";
             phase++;
         }
-        if (collectedBoxes.Count >= 11)
+        if (collectedBoxes.Count >= 11 && gameInProgress) // Win condition
         {
-            timeTaken = TOTALTIME - Time.time + startTime;
+            mainDepTrigger.SetActive(false);
+            timeTaken = TOTALTIME - (timeRemaining);
             phase++;
             HandleEndGame();
         }
@@ -133,7 +137,8 @@ public class LevelScript : MonoBehaviour
     {
         if (phase == 4) // Level has been completed
         {
-            timeTakenLbl.text = "Time: " + timeTaken.ToString();
+            gameInProgress = false;
+            timeTakenLbl.text = "Time: " + timeTaken.ToString() + "s";
 
             // Open front door
             frontDoorOp.SetActive(true);
@@ -160,6 +165,12 @@ public class LevelScript : MonoBehaviour
 
     public void HandleHouseExit()
     {
+        // Set all collected boxes to not follow
+        foreach (Box b in collectedBoxes)
+        {
+            b.transform.Find("Trigger").gameObject.SetActive(false);
+            b.SetFollow(false);
+        }
         playerCt.SetMoveSpeed(0.01f);
         RotateCam();
         policeLights.SetActive(true);
