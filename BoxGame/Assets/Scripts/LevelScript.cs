@@ -11,6 +11,7 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private GameObject frontDoor;
     [SerializeField] private GameObject frontDoorOp;
     [SerializeField] private GameObject houseEntryTriggers;
+    private bool playerInHouse = false;
     [SerializeField] private Box houseGuy;
     [SerializeField] private GameObject hgDoor;
     [SerializeField] private GameObject hgDoorOp;
@@ -26,11 +27,26 @@ public class LevelScript : MonoBehaviour
     private int phase = 0;
 
     [SerializeField] private Text phaseLbl;
+    [SerializeField] private Text countdownLbl;
+    private const float TOTALTIME = 60.00f;
+    private float timeRemaining = 60.00f;
+    private float startTime;
 
     // Start is called before the first frame update
     void Start()
     {
         InvokeRepeating("DimSunlight", 1.0f, 1.0f);
+    }
+
+    void FixedUpdate()
+    {
+        if (playerInHouse && timeRemaining > 0)
+        {
+            timeRemaining = TOTALTIME - Time.time + startTime;
+            countdownLbl.text = ((int)timeRemaining).ToString();
+            if (timeRemaining <= 0)
+                policeLights.SetActive(true);
+        }
     }
 
     void DimSunlight()
@@ -39,7 +55,6 @@ public class LevelScript : MonoBehaviour
         if (sun.intensity < 0.1)
         {
             CancelInvoke();
-            policeLights.SetActive(true);
         }
     }
 
@@ -50,6 +65,8 @@ public class LevelScript : MonoBehaviour
         frontDoor.SetActive(true);
         phaseLbl.text = "Phase 1";
         phase++;
+        startTime = Time.time;
+        playerInHouse = true;
     }
 
     public void HandleOfficeEntry()
