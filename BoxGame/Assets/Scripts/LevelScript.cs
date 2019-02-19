@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelScript : MonoBehaviour
@@ -33,11 +34,15 @@ public class LevelScript : MonoBehaviour
     private int phase = 0;
     private List<Box> collectedBoxes = new List<Box>();
 
+    [SerializeField] private GameObject failPanel;
+    [SerializeField] private GameObject successPanel;
     [SerializeField] private Text phaseLbl;
     [SerializeField] private Text countdownLbl;
+    [SerializeField] private Text timeTakenLbl;
     private const float TOTALTIME = 60.00f;
     private float timeRemaining = 60.00f;
     private float startTime;
+    private float timeTaken;
 
     // Start is called before the first frame update
     void Start()
@@ -118,6 +123,7 @@ public class LevelScript : MonoBehaviour
         }
         if (collectedBoxes.Count >= 11)
         {
+            timeTaken = TOTALTIME - Time.time + startTime;
             phase++;
             HandleEndGame();
         }
@@ -127,6 +133,8 @@ public class LevelScript : MonoBehaviour
     {
         if (phase == 4) // Level has been completed
         {
+            timeTakenLbl.text = "Time: " + timeTaken.ToString();
+
             // Open front door
             frontDoorOp.SetActive(true);
             frontDoor.SetActive(false);
@@ -144,8 +152,9 @@ public class LevelScript : MonoBehaviour
         }
         else // Level failed
         {
-            // cop enters premises, arrests player
-            policeLights.SetActive(true);
+            // Level failed, must restart
+            playerCt.SetMoveSpeed(0.0f);
+            failPanel.SetActive(true);
         }
     }
 
@@ -161,7 +170,15 @@ public class LevelScript : MonoBehaviour
     {
         cop.position = Vector3.MoveTowards(cop.position, player.position, 5.0f * 0.05f);
         if (++copMoveCount > 50.0f)
+        {
             CancelInvoke();
+            Invoke("ShowSuccessPanel", 4.0f);
+        }
+    }
+
+    private void ShowSuccessPanel()
+    {
+        successPanel.SetActive(true);
     }
 
     private void RotateCam()
@@ -176,5 +193,15 @@ public class LevelScript : MonoBehaviour
         }
 
         topView = !topView;
+    }
+
+    public void EHRestart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void EHQuit()
+    {
+        Application.Quit();
     }
 }
