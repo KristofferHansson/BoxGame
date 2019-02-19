@@ -7,11 +7,18 @@ public class LevelScript : MonoBehaviour
 {
     [SerializeField] private Light sun;
     [SerializeField] private GameObject policeLights;
+    [SerializeField] private Transform cam;
+    private bool topView = true;
+    [SerializeField] private Transform cop;
+    private int copMoveCount = 0;
+    [SerializeField] private Transform player;
+    [SerializeField] private PlayerController playerCt;
 
     [SerializeField] private GameObject frontDoor;
     [SerializeField] private GameObject frontDoorOp;
     [SerializeField] private GameObject houseEntryTriggers;
     private bool playerInHouse = false;
+    [SerializeField] private GameObject houseExitTrigger;
     [SerializeField] private Box houseGuy;
     [SerializeField] private GameObject hgDoor;
     [SerializeField] private GameObject hgDoorOp;
@@ -23,8 +30,8 @@ public class LevelScript : MonoBehaviour
 
     [SerializeField] private Text scorePtLbl;
     private int points = 0;
-    private int numDep = 0;
     private int phase = 0;
+    private List<Box> collectedBoxes = new List<Box>();
 
     [SerializeField] private Text phaseLbl;
     [SerializeField] private Text countdownLbl;
@@ -45,7 +52,7 @@ public class LevelScript : MonoBehaviour
             timeRemaining = TOTALTIME - Time.time + startTime;
             countdownLbl.text = ((int)timeRemaining).ToString();
             if (timeRemaining <= 0)
-                policeLights.SetActive(true);
+                HandleEndGame();
         }
     }
 
@@ -100,21 +107,74 @@ public class LevelScript : MonoBehaviour
     {
         deposited.transform.Find("Trigger").gameObject.SetActive(false);
         deposited.SetFollow(false);
-        numDep++;
+        collectedBoxes.Add(deposited);
         scorePtLbl.text = (++points).ToString();
-        if (numDep >= 6 && phase == 1)
+        if (collectedBoxes.Count >= 6 && phase == 1)
         {
             hgDoor.SetActive(false);
             hgDoorOp.SetActive(true);
             phaseLbl.text = "Phase 2";
             phase++;
         }
-        if (numDep >= 11)
+        if (collectedBoxes.Count >= 11)
         {
+            phase++;
+            HandleEndGame();
+        }
+    }
+
+    public void HandleEndGame()
+    {
+        if (phase == 4) // Level has been completed
+        {
+            // Open front door
             frontDoorOp.SetActive(true);
             frontDoor.SetActive(false);
             phaseLbl.text = "Level Complete!";
-            phase++;
+
+            // Set all collected boxes to follow
+            foreach (Box b in collectedBoxes)
+            {
+                b.transform.Find("Trigger").gameObject.SetActive(true);
+                b.SetFollow(true);
+            }
+
+            // Upon exiting house, player will enter trigger
+            houseExitTrigger.SetActive(true);
         }
+        else // Level failed
+        {
+            // cop enters premises, arrests player
+            policeLights.SetActive(true);
+        }
+    }
+
+    public void HandleHouseExit()
+    {
+        playerCt.SetMoveSpeed(0.01f);
+        RotateCam();
+        policeLights.SetActive(true);
+        InvokeRepeating("MoveCop", 0.05f, 0.05f);
+    }
+
+    private void MoveCop()
+    {
+        cop.position = Vector3.MoveTowards(cop.position, player.position, 5.0f * 0.05f);
+        if (++copMoveCount > 50.0f)
+            CancelInvoke();
+    }
+
+    private void RotateCam()
+    {
+        if (topView)
+        {
+            cam.eulerAngles = new Vector3(0, 45, -70);
+        }
+        else
+        {
+            cam.eulerAngles = new Vector3(0, 0, 0);
+        }
+
+        topView = !topView;
     }
 }

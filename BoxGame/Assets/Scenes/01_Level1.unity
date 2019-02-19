@@ -1638,6 +1638,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   box: {fileID: 1088586926}
+--- !u!4 &464878163 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 47eb43ac8563d8248a4a3ed56cdd0550,
+    type: 3}
+  m_PrefabInstance: {fileID: 398836567}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &475531613
 GameObject:
   m_ObjectHideFlags: 0
@@ -2958,6 +2964,64 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 864410818}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &881867221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 881867222}
+  - component: {fileID: 881867223}
+  - component: {fileID: 881867224}
+  m_Layer: 0
+  m_Name: HouseExitTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &881867222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881867221}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.27, y: 3.48, z: -10.76}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1430826161}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &881867223
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881867221}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &881867224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881867221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ba07d1493b62b42bec81d407d53e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: {fileID: 1262109960}
 --- !u!1 &902254967
 GameObject:
   m_ObjectHideFlags: 0
@@ -4067,9 +4131,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 634472455}
   policeLights: {fileID: 589687950}
+  cam: {fileID: 1487896802}
+  cop: {fileID: 464878163}
+  player: {fileID: 273073706}
+  playerCt: {fileID: 273073708}
   frontDoor: {fileID: 52131075}
   frontDoorOp: {fileID: 1287102548}
   houseEntryTriggers: {fileID: 1737035362}
+  houseExitTrigger: {fileID: 881867221}
   houseGuy: {fileID: 1059555029}
   hgDoor: {fileID: 1944820432}
   hgDoorOp: {fileID: 140207869}
@@ -4423,6 +4492,7 @@ Transform:
   - {fileID: 1944820433}
   - {fileID: 140207870}
   - {fileID: 1737035363}
+  - {fileID: 881867222}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

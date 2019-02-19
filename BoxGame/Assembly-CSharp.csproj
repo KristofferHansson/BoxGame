@@ -61,6 +61,7 @@
     <Compile Include="Assets\Scripts\OnClosetTriggerEnter.cs" />
     <Compile Include="Assets\Scripts\OnClosetTriggerExit.cs" />
     <Compile Include="Assets\Scripts\OnHouseDoorTriggerEnter.cs" />
+    <Compile Include="Assets\Scripts\OnHouseExit.cs" />
     <Compile Include="Assets\Scripts\OnMainDepositTriggerEnter.cs" />
     <Compile Include="Assets\Scripts\OnOfficeTriggerEntry.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />

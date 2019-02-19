@@ -66,4 +66,12 @@ public class PlayerController : MonoBehaviour
 
         topView = !topView;
     }
+
+    public void SetMoveSpeed(float spd)
+    {
+        if (spd < 0)
+            move_Speed = 0;
+        else
+            move_Speed = spd;
+    }
 }
