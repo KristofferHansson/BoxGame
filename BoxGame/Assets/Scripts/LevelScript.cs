@@ -23,6 +23,7 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private Text scorePtLbl;
     private int points = 0;
     private int numDep = 0;
+    private int phase = 0;
 
     [SerializeField] private Text phaseLbl;
 
@@ -48,6 +49,7 @@ public class LevelScript : MonoBehaviour
         frontDoorOp.SetActive(false);
         frontDoor.SetActive(true);
         phaseLbl.text = "Phase 1";
+        phase++;
     }
 
     public void HandleOfficeEntry()
@@ -73,6 +75,7 @@ public class LevelScript : MonoBehaviour
             divDoor.SetActive(false);
             divDoorOp.SetActive(true);
             phaseLbl.text = "Phase 3";
+            phase++;
         }
     }
 
@@ -82,11 +85,19 @@ public class LevelScript : MonoBehaviour
         deposited.SetFollow(false);
         numDep++;
         scorePtLbl.text = (++points).ToString();
-        if (numDep >= 5)
+        if (numDep >= 6 && phase == 1)
         {
             hgDoor.SetActive(false);
             hgDoorOp.SetActive(true);
             phaseLbl.text = "Phase 2";
+            phase++;
+        }
+        if (numDep >= 11)
+        {
+            frontDoorOp.SetActive(true);
+            frontDoor.SetActive(false);
+            phaseLbl.text = "Level Complete!";
+            phase++;
         }
     }
 }
