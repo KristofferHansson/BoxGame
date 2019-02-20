@@ -12,8 +12,11 @@ public class LevelScript : MonoBehaviour
     private bool topView = true;
     [SerializeField] private Transform cop;
     private int copMoveCount = 0;
+
     [SerializeField] private Transform player;
     [SerializeField] private PlayerController playerCt;
+    [SerializeField] private PCStart playerCtS;
+
 
     [SerializeField] private GameObject frontDoor;
     [SerializeField] private GameObject frontDoorOp;
@@ -49,6 +52,7 @@ public class LevelScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerCt.enabled = false;
         timeRemaining = TOTALTIME;
         InvokeRepeating("DimSunlight", 1.0f, 1.0f);
     }
@@ -82,6 +86,8 @@ public class LevelScript : MonoBehaviour
         phase++;
         startTime = Time.time;
         playerInHouse = true;
+        playerCtS.enabled = false;
+        playerCt.enabled = true;
     }
 
     public void HandleOfficeEntry()

@@ -12,7 +12,7 @@ public class PoliceLightFlashing : MonoBehaviour
     {
         blue.SetActive(true);
         red.SetActive(false);
-        InvokeRepeating("Flash", 0.05f, 0.1f);
+        InvokeRepeating("Flash", 0.05f, 0.3f);
     }
 
     void Flash()

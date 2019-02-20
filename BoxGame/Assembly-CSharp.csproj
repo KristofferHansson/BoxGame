@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\OnHouseExit.cs" />
     <Compile Include="Assets\Scripts\OnMainDepositTriggerEnter.cs" />
     <Compile Include="Assets\Scripts\OnOfficeTriggerEntry.cs" />
+    <Compile Include="Assets\Scripts\PCStart.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PoliceLightFlashing.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">

@@ -1221,6 +1221,7 @@ GameObject:
   - component: {fileID: 273073706}
   - component: {fileID: 273073707}
   - component: {fileID: 273073708}
+  - component: {fileID: 273073709}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -1276,6 +1277,19 @@ MonoBehaviour:
   move_Speed: 5
   cam: {fileID: 1487896802}
   mesh: {fileID: 1908069952}
+--- !u!114 &273073709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273073705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e04ef558ddd22034fb1dd771959d1ee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move_Speed: 2
 --- !u!1 &287214640
 GameObject:
   m_ObjectHideFlags: 0
@@ -1828,7 +1842,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 0.009498768, b: 0, a: 1}
-  m_Intensity: 5
+  m_Intensity: 4.5
   m_Range: 100
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -2151,7 +2165,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 0, g: 0.12898159, b: 1, a: 1}
-  m_Intensity: 5
+  m_Intensity: 4.5
   m_Range: 100
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -3218,7 +3232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &881867222
 Transform:
   m_ObjectHideFlags: 0
@@ -4788,6 +4802,7 @@ MonoBehaviour:
   cop: {fileID: 464878163}
   player: {fileID: 273073706}
   playerCt: {fileID: 273073708}
+  playerCtS: {fileID: 273073709}
   frontDoor: {fileID: 52131075}
   frontDoorOp: {fileID: 1287102548}
   houseEntryTriggers: {fileID: 1737035362}

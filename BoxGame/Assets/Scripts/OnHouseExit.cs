@@ -8,6 +8,7 @@ public class OnHouseExit : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        level.HandleHouseExit();
+        if (other.transform.parent != null && other.transform.parent.name.Equals("Character"))
+            level.HandleHouseExit();
     }
 }
