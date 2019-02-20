@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private LevelScript lvl;
     [SerializeField] private float move_Speed = 1.0f;
     [SerializeField] private Transform cam;
     [SerializeField] private GameObject mesh;
@@ -33,8 +34,12 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
             z += 1.0f;
 
-        if (Input.GetKeyDown(KeyCode.F))
-            RotateCam();
+        if (Input.GetKeyDown(KeyCode.Escape))
+            lvl.EHQuit();
+        if (Input.GetKeyDown(KeyCode.BackQuote))
+            lvl.EHRestart();
+        if (Input.GetKeyDown(KeyCode.M))
+            lvl.EHToggleMute();
 
         // Update movement vector
         move.x = x;
@@ -51,20 +56,6 @@ public class PlayerController : MonoBehaviour
             mesh.transform.eulerAngles = new Vector3(-90,0,90);
         else if (Mathf.Abs(move.z) > 0.707)
             mesh.transform.eulerAngles = new Vector3(-90, 0, 0);
-    }
-
-    private void RotateCam()
-    {
-        if (topView)
-        {
-            cam.eulerAngles = new Vector3(0, 45, -70);
-        }
-        else
-        {
-            cam.eulerAngles = new Vector3(0, 0, 0);
-        }
-
-        topView = !topView;
     }
 
     public void SetMoveSpeed(float spd)

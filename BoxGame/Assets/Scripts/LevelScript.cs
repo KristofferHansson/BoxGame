@@ -16,7 +16,7 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private PlayerController playerCt;
     [SerializeField] private PCStart playerCtS;
-
+    [SerializeField] private AudioSource mainAudio;
 
     [SerializeField] private GameObject frontDoor;
     [SerializeField] private GameObject frontDoorOp;
@@ -28,6 +28,8 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private GameObject hgDoorOp;
     [SerializeField] private GameObject divDoor;
     [SerializeField] private GameObject divDoorOp;
+    [SerializeField] private GameObject bwayDoor;
+    [SerializeField] private GameObject bwayDoorOp;
     private bool hgInCloset = false;
     private bool closClosed = false;
     [SerializeField] private GameObject closetDoor;
@@ -43,11 +45,16 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private Text phaseLbl;
     [SerializeField] private Text countdownLbl;
     [SerializeField] private Text timeTakenLbl;
-    private const float TOTALTIME = 70.00f;
+    private const float TOTALTIME = 90.00f;
     private float timeRemaining;
     private float startTime;
     private float timeTaken;
     private bool gameInProgress = true;
+
+    [SerializeField] private Camera mainCam;
+    [SerializeField] private Camera closetCam;
+    [SerializeField] private Camera stolenGoodsCam;
+    [SerializeField] private Camera closeupCam;
 
     // Start is called before the first frame update
     void Start()
@@ -112,6 +119,8 @@ public class LevelScript : MonoBehaviour
 
             divDoor.SetActive(false);
             divDoorOp.SetActive(true);
+            bwayDoor.SetActive(false);
+            bwayDoorOp.SetActive(true);
             phaseLbl.text = "Phase 3";
             phase++;
         }
@@ -189,8 +198,29 @@ public class LevelScript : MonoBehaviour
         if (++copMoveCount > 50.0f)
         {
             CancelInvoke();
-            Invoke("ShowSuccessPanel", 4.0f);
+            Invoke("PlayCinematic", 2.0f);
         }
+    }
+
+    private void PlayCinematic()
+    {
+        closetDoor.SetActive(false);
+        mainCam.enabled = false;
+        closetCam.enabled = true;
+        Invoke("SwitchToStolenGoods", 4.0f);
+    }
+    private void SwitchToStolenGoods()
+    {
+        closetDoor.SetActive(true);
+        closetCam.enabled = false;
+        stolenGoodsCam.enabled = true;
+        Invoke("SwitchToCloseup", 4.0f);
+    }
+    private void SwitchToCloseup()
+    {
+        stolenGoodsCam.enabled = false;
+        closeupCam.enabled = true;
+        Invoke("ShowSuccessPanel", 4.0f);
     }
 
     private void ShowSuccessPanel()
@@ -210,6 +240,14 @@ public class LevelScript : MonoBehaviour
         }
 
         topView = !topView;
+    }
+
+    public void EHToggleMute()
+    {
+        if (mainAudio.volume == 0)
+            mainAudio.volume = 1;
+        else
+            mainAudio.volume = 0;
     }
 
     public void EHRestart()
