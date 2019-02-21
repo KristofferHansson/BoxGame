@@ -26,6 +26,7 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private Box houseGuy;
     [SerializeField] private GameObject hgDoor;
     [SerializeField] private GameObject hgDoorOp;
+    [SerializeField] private GameObject officeTrigger;
     [SerializeField] private GameObject divDoor;
     [SerializeField] private GameObject divDoorOp;
     [SerializeField] private GameObject bwayDoor;
@@ -33,6 +34,7 @@ public class LevelScript : MonoBehaviour
     private bool hgInCloset = false;
     private bool closClosed = false;
     [SerializeField] private GameObject closetDoor;
+    [SerializeField] private GameObject roof;
 
     [SerializeField] private GameObject mainDepTrigger;
     [SerializeField] private Text scorePtLbl;
@@ -54,6 +56,7 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private Camera mainCam;
     [SerializeField] private Camera closetCam;
     [SerializeField] private Camera stolenGoodsCam;
+    [SerializeField] private Camera overviewCam;
     [SerializeField] private Camera closeupCam;
 
     // Start is called before the first frame update
@@ -99,7 +102,7 @@ public class LevelScript : MonoBehaviour
 
     public void HandleOfficeEntry()
     {
-        Destroy(houseEntryTriggers);
+        Destroy(officeTrigger);
         houseGuy.SetFlee(true);
     }
 
@@ -180,6 +183,7 @@ public class LevelScript : MonoBehaviour
 
     public void HandleHouseExit()
     {
+        roof.SetActive(true);
         // Set all collected boxes to not follow
         foreach (Box b in collectedBoxes)
         {
@@ -214,11 +218,17 @@ public class LevelScript : MonoBehaviour
         closetDoor.SetActive(true);
         closetCam.enabled = false;
         stolenGoodsCam.enabled = true;
+        Invoke("SwitchToOverview", 4.0f);
+    }
+    private void SwitchToOverview()
+    {
+        stolenGoodsCam.enabled = false;
+        overviewCam.enabled = true;
         Invoke("SwitchToCloseup", 4.0f);
     }
     private void SwitchToCloseup()
     {
-        stolenGoodsCam.enabled = false;
+        overviewCam.enabled = false;
         closeupCam.enabled = true;
         Invoke("ShowSuccessPanel", 4.0f);
     }
