@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class LevelScript : MonoBehaviour
 {
-    [SerializeField] private Light sun;
     [SerializeField] private GameObject policeLights;
     [SerializeField] private Transform cam;
     private bool topView = true;
@@ -64,7 +63,6 @@ public class LevelScript : MonoBehaviour
     {
         playerCt.enabled = false;
         timeRemaining = TOTALTIME;
-        InvokeRepeating("DimSunlight", 1.0f, 1.0f);
     }
 
     void FixedUpdate()
@@ -75,15 +73,6 @@ public class LevelScript : MonoBehaviour
             countdownLbl.text = ((int)timeRemaining).ToString();
             if (timeRemaining <= 0) // Win condition
                 HandleEndGame();
-        }
-    }
-
-    void DimSunlight()
-    {
-        sun.intensity -= 0.01f;
-        if (sun.intensity < 0.1)
-        {
-            CancelInvoke();
         }
     }
 
@@ -183,6 +172,7 @@ public class LevelScript : MonoBehaviour
 
     public void HandleHouseExit()
     {
+        houseExitTrigger.SetActive(false);
         roof.SetActive(true);
         // Set all collected boxes to not follow
         foreach (Box b in collectedBoxes)
@@ -255,7 +245,7 @@ public class LevelScript : MonoBehaviour
     public void EHToggleMute()
     {
         if (mainAudio.volume == 0)
-            mainAudio.volume = 1;
+            mainAudio.volume = 0.5f;
         else
             mainAudio.volume = 0;
     }

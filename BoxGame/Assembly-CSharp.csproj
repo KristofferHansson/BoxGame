@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Box.cs" />
+    <Compile Include="Assets\Scripts\DimSunlight.cs" />
     <Compile Include="Assets\Scripts\LevelScript.cs" />
     <Compile Include="Assets\Scripts\OnBoxTriggerEnter.cs" />
     <Compile Include="Assets\Scripts\OnClosetTriggerEnter.cs" />
