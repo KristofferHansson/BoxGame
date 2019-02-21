@@ -245,7 +245,7 @@ public class LevelScript : MonoBehaviour
     public void EHToggleMute()
     {
         if (mainAudio.volume == 0)
-            mainAudio.volume = 0.5f;
+            mainAudio.volume = 0.2f;
         else
             mainAudio.volume = 0;
     }
